@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Azzahra Eka - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libsx/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+        background: #0f0f23;
+      }
+
+      /* Dark mode styles */
+      .dark {
+        background: #0f0f23;
+        color: #ffffff;
+      }
+
+      .light {
+        background: #f8f9fa;
+        color: #212529;
+      }
+
+      /* Particle Canvas */
+      #particles-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.5;
+      }
+
+      /* Glassmorphism */
+      .glass {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .light .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      /* Gradient Text */
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Typing Animation */
+      .typing {
+        border-right: 3px solid #667eea;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          border-color: #667eea;
+        }
+        51%,
+        100% {
+          border-color: transparent;
+        }
+      }
+
+      /* Floating Animation */
+      .float {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Skill Progress Bar */
+      .skill-progress {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-progress::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* Card Hover Effect */
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+      }
+
+      /* Navbar Scroll Effect */
+      .navbar-scrolled {
+        background: rgba(15, 15, 35, 0.95) !important;
+        backdrop-filter: blur(10px);
+      }
+
+      .light .navbar-scrolled {
+        background: rgba(255, 255, 255, 0.95) !important;
+      }
+
+      /* Smooth Scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 5px;
+      }
+
+      /* Reveal Animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Project Card */
+      .project-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .project-card:hover::before {
+        left: 100%;
+      }
+
+      /* Loading Animation */
+      .loader {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(102, 126, 234, 0.3);
+        border-top-color: #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="dark">
+    <!-- Particle Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Loading Screen -->
+    <div
+      id="loader"
+      class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50"
+    >
+      <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="text-2xl font-bold gradient-text">EAF.</div>
+
+          <div class="hidden md:flex space-x-8">
+            <a href="#home" class="nav-link hover:text-purple-400 transition"
+              >Beranda</a
+            >
+            <a href="#about" class="nav-link hover:text-purple-400 transition"
+              >Tentang</a
+            >
+            <a href="#skills" class="nav-link hover:text-purple-400 transition"
+              >Keahlian</a
+            >
+            <a
+              href="#portfolio"
+              class="nav-link hover:text-purple-400 transition"
+              >Portfolio</a
+            >
+            <a href="#contact" class="nav-link hover:text-purple-400 transition"
+              >Kontak</a
+            >
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <button
+              id="theme-toggle"
+              class="p-2 rounded-full glass hover:bg-white/10 transition"
+            >
+              <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <button id="menu-toggle" class="md:hidden p-2">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobile-menu"
+          class="hidden md:hidden mt-4 glass rounded-lg p-4"
+        >
+          <a href="#home" class="block py-2 hover:text-purple-400 transition"
+            >Beranda</a
+          >
+          <a href="#about" class="block py-2 hover:text-purple-400 transition"
+            >Tentang</a
+          >
+          <a href="#skills" class="block py-2 hover:text-purple-400 transition"
+            >Keahlian</a
+          >
+          <a
+            href="#portfolio"
+            class="block py-2 hover:text-purple-400 transition"
+            >Portfolio</a
+          >
+          <a href="#contact" class="block py-2 hover:text-purple-400 transition"
+            >Kontak</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="min-h-screen flex items-center justify-center relative"
+    >
+      <div class="container mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="reveal">
+            <h2 class="text-lg text-purple-400 mb-2">Halo, Saya</h2>
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">
+              Azzahra Eka Ramadhani
+            </h1>
+            <div class="text-2xl md:text-3xl mb-6">
+              <span>Saya seorang </span>
+              <span
+                id="typed-text"
+                class="gradient-text font-semibold typing"
+              ></span>
+            </div>
+            <p class="text-gray-400 mb-8 leading-relaxed">
+              Saya adalah seorang siswa SMK jurusan Rekayasa Perangkat Lunak
+              yang memiliki ketertarikan besar pada dunia teknologi dan
+              pemrograman. Saya menikmati proses belajar dalam membangun
+              website, memahami logika program, mengembangkan game, serta
+              menganalisis dan mengelola data.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a
+                href="#portfolio"
+                class="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition transform hover:scale-105"
+              >
+                Lihat Portfolio
+              </a>
+              <a
+                href="#contact"
+                class="px-8 py-3 glass rounded-full font-semibold hover:bg-white/10 transition"
+              >
+                Hubungi Saya
+              </a>
+            </div>
+            <div class="flex gap-4 mt-8">
+              <a
+                href="#"
+                class="text-2xl hover:text-purple-400 transition transform hover:scale-110"
+              >
+                <i class="fab fa-github"></i>
+              </a>
+              <a
+                href="#"
+                class="text-2xl hover:text-purple-400 transition transform hover:scale-110"
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="text-2xl hover:text-purple-400 transition transform hover:scale-110"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                class="text-2xl hover:text-purple-400 transition transform hover:scale-110"
+              >
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+          <div class="relative reveal">
+            <div class="float">
+              <div class="relative">
+                <img
+                  src="assets/img/foto.jpg"
+                  alt="Profile"
+                  class="rounded-full mx-auto w-80 h-80 object-cover shadow-2xl shadow-purple-500/20"
+                />
+                <!-- <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-500/20 to-pink-500/20"></div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12 reveal">
+          Tentang <span class="gradient-text">Saya</span>
+        </h2>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="reveal">
+            <img
+              src="assets/img/about.jpg"
+              alt="Workspace"
+              class="rounded-2xl shadow-xl"
+            />
+          </div>
+          <div class="reveal">
+            <h3 class="text-2xl font-semibold mb-4">Siswa & Developer</h3>
+            <p class="text-gray-400 mb-6 leading-relaxed">
+              Saya adalah seorang Siswa yang memiliki minat besar dalam
+              teknologi dan kreativitas. Terbiasa belajar melalui sekolah,
+              YouTube, dan course online, dengan pendekatan eksploratif dan
+              konsisten. Rasa penasaran mendorong saya untuk terus memahami hal
+              baru, sementara fokus dan konsistensi menjadi prinsip saya dalam
+              mengembangkan kemampuan menuju Web Developer, Software Engineer,
+              dan Game Developer di masa depan
+            </p>
+            <p class="text-gray-400 mb-6 leading-relaxed">
+              Melalui berbagai project yang saya kerjakan, saya terbiasa
+              mengatur waktu dan menyelesaikan tugas tepat waktu. Saya juga
+              belajar bekerja sama dengan orang lain, sekaligus terus menjaga
+              semangat untuk eksplorasi dan mengembangkan kemampuan di dunia
+              digital.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="glass p-4 rounded-lg">
+                <i class="fas fa-code text-purple-400 text-2xl mb-2"></i>
+                <h4 class="font-semibold">Programming💻</h4>
+                <p class="text-sm text-gray-400">Web & Mobile Development</p>
+              </div>
+              <div class="glass p-4 rounded-lg">
+                <i class="fas fa-video text-purple-400 text-2xl mb-2"></i>
+                <h4 class="font-semibold">Game Developer🎮</h4>
+                <p class="text-sm text-gray-400">Content Creation</p>
+              </div>
+              <div class="glass p-4 rounded-lg">
+                <i class="fas fa-pen text-purple-400 text-2xl mb-2"></i>
+                <h4 class="font-semibold">Data Analysis📊</h4>
+                <p class="text-sm text-gray-400">Creative Writing</p>
+              </div>
+              <div class="glass p-4 rounded-lg">
+                <i
+                  class="fas fa-graduation-cap text-purple-400 text-2xl mb-2"
+                ></i>
+                <h4 class="font-semibold">Siswa👩‍💻</h4>
+                <p class="text-sm text-gray-400">Continuous Learning</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12 reveal">
+          Keahlian <span class="gradient-text">Saya</span>
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Programming Skills -->
+          <div class="glass rounded-2xl p-6 card-hover reveal">
+            <div class="text-center mb-6">
+              <i class="fas fa-laptop-code text-5xl text-purple-400"></i>
+              <h3 class="text-xl font-semibold mt-4">Web Development</h3>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>HTML/CSS/JS</span>
+                  <span>90%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 90%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>PHP/MySQL</span>
+                  <span>85%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 85%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>Node.js/Express</span>
+                  <span>75%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 80%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>Python</span>
+                  <span>80%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 75%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Editing Skills -->
+          <div class="glass rounded-2xl p-6 card-hover reveal">
+            <div class="text-center mb-6">
+              <i class="fas fa-film text-5xl text-purple-400"></i>
+              <h3 class="text-xl font-semibold mt-4">Mobile App Development</h3>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>Dart/Flutter</span>
+                  <span>88%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 88%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>Android Studio/Java/Kotlin</span>
+                  <span>82%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 82%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>Firebase/SQLite</span>
+                  <span>85%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 85%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>UI/UX Design Basics</span>
+                  <span>78%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 78%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Copywriting Skills -->
+          <div class="glass rounded-2xl p-6 card-hover reveal">
+            <div class="text-center mb-6">
+              <i class="fas fa-pen-fancy text-5xl text-purple-400"></i>
+              <h3 class="text-xl font-semibold mt-4">Data & Logic Analysis</h3>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>SQL/MySQL</span>
+                  <span>92%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 92%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>Python (Pandas/NumPy)</span>
+                  <span>90%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 90%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>Data Visualization (Matplotlib/Seaborn)</span>
+                  <span>75%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 85%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>Logic & Algorithm Problem Solving</span>
+                  <span>88%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                    style="width: 88%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12 reveal">
+          Portfolio <span class="gradient-text">Saya</span>
+        </h2>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12 reveal">
+          <button
+            class="filter-btn px-6 py-2 glass rounded-full hover:bg-purple-500/20 transition"
+            data-filter="all"
+          >
+            Semua
+          </button>
+          <button
+            class="filter-btn px-6 py-2 glass rounded-full hover:bg-purple-500/20 transition"
+            data-filter="web"
+          >
+            Web Development
+          </button>
+          <button
+            class="filter-btn px-6 py-2 glass rounded-full hover:bg-purple-500/20 transition"
+            data-filter="video"
+          >
+            Video Editing
+          </button>
+          <button
+            class="filter-btn px-6 py-2 glass rounded-full hover:bg-purple-500/20 transition"
+            data-filter="content"
+          >
+            Content & Copy
+          </button>
+        </div>
+
+        <!-- Portfolio Grid -->
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Project 1 -->
+          <div
+            class="project-card glass rounded-2xl overflow-hidden card-hover reveal"
+            data-category="web"
+          >
+            <img
+              src="assets/img/hotel_app.jpg"
+              alt="Project 1"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Hotel App</h3>
+              <p class="text-gray-400 mb-4">
+                dengan Flutter dan bahasa pemrograman Dart
+              </p>
+              <div class="flex gap-2 mb-4">
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Dart</span
+                >
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Flutter</span
+                >
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Android Studio</span
+                >
+              </div>
+              <a
+                href="#"
+                class="text-purple-400 hover:text-purple-300 transition"
+              >
+                Lihat Detail <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div
+            class="project-card glass rounded-2xl overflow-hidden card-hover reveal"
+            data-category="video"
+          >
+            <img
+              src="assets/img/glad2glow.jpg"
+              alt="Project 2"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Glad2Glow Skincare Website</h3>
+              <p class="text-gray-400 mb-4">
+                Website sederhana untuk toko skincare “Glad2Glow”, menampilkan katalog produk, detail harga, dan formulir kontak untuk pemesanan.
+              </p>
+              <div class="flex gap-2 mb-4">
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Html</span
+                >
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Css</span
+                >
+              </div>
+              <a
+                href="#"
+                class="text-purple-400 hover:text-purple-300 transition"
+              >
+                Lihat Detail <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div
+            class="project-card glass rounded-2xl overflow-hidden card-hover reveal"
+            data-category="content"
+          >
+            <img
+              src="assets/img/skintific.jpg"
+              alt="Project 3"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Skintific Skincare Landing Page</h3>
+              <p class="text-gray-400 mb-4">
+                Website promosi untuk brand “Skintific”, fokus pada tampilan produk dan informasi brand. Melatih kemampuan desain halaman dan struktur konten web.
+              </p>
+              <div class="flex gap-2 mb-4">
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Html</span
+                >
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Css</span
+                >
+              </div>
+              <a
+                href="#"
+                class="text-purple-400 hover:text-purple-300 transition"
+              >
+                Lihat Detail <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div
+            class="project-card glass rounded-2xl overflow-hidden card-hover reveal"
+            data-category="web"
+          >
+            <img
+              src="assets/img/cat_shop.jpg"
+              alt="Project 4"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Cat Shop</h3>
+              <p class="text-gray-400 mb-4">
+                Website penjualan kucing dengan database lokal, menampilkan katalog kucing, detail, dan halaman login. Menekankan pengelolaan data dan logika query SQL.
+              </p>
+              <div class="flex gap-2 mb-4">
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >PHP</span
+                >
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >MySQL</span
+                >
+              </div>
+              <a
+                href="#"
+                class="text-purple-400 hover:text-purple-300 transition"
+              >
+                Lihat Detail <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 5 -->
+          <div
+            class="project-card glass rounded-2xl overflow-hidden card-hover reveal"
+            data-category="video"
+          >
+            <img
+              src="assets/img/isyarat.jpg"
+              alt="Project 5"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Sign Language Name</h3>
+              <p class="text-gray-400 mb-4">
+               Program sederhana untuk mengenalkan nama melalui bahasa isyarat, menggunakan logika pengenalan simbol. Melatih kemampuan algoritma dan logika dasar Python.
+              </p>
+              <div class="flex gap-2 mb-4">
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Python</span
+                >
+              </div>
+              <a
+                href="#"
+                class="text-purple-400 hover:text-purple-300 transition"
+              >
+                Lihat Detail <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 6 -->
+          <div
+            class="project-card glass rounded-2xl overflow-hidden card-hover reveal"
+            data-category="content"
+          >
+            <img
+              src="assets/img/pemesanan_makeup.jpg"
+              alt="Project 6"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Pemesanan Makeup Berbasis GUI</h3>
+              <p class="text-gray-400 mb-4">
+                Aplikasi desktop GUI untuk pemesanan makeup, menampilkan form input user dan pilihan produk. Membiasakan dengan pembuatan interface dan event handling di Python.
+              </p>
+              <div class="flex gap-2 mb-4">
+                <span class="px-3 py-1 bg-purple-500/20 rounded-full text-xs"
+                  >Python (GUI)</span
+                >
+              </div>
+              <a
+                href="#"
+                class="text-purple-400 hover:text-purple-300 transition"
+              >
+                Lihat Detail <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12 reveal">
+          Hubungi <span class="gradient-text">Saya</span>
+        </h2>
+        <div class="max-w-4xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="reveal">
+              <h3 class="text-2xl font-semibold mb-6">Mari Berkolaborasi!</h3>
+              <p class="text-gray-400 mb-8">
+                Saya selalu terbuka untuk diskusi tentang proyek baru, ide
+                kreatif, atau kesempatan untuk menjadi bagian dari visi Anda.
+              </p>
+              <div class="space-y-4">
+                <div class="flex items-center gap-4">
+                  <div
+                    class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-envelope text-purple-400"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-400">Email</p>
+                    <p>ekaa6349@gmail.com</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div
+                    class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-phone text-purple-400"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-400">Telepon</p>
+                    <p>+62 815-5384-8188</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div
+                    class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-map-marker-alt text-purple-400"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-400">Lokasi</p>
+                    <p>Indonesia</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reveal">
+              <form id="contact-form" class="glass rounded-2xl p-6">
+                <div class="mb-4">
+                  <input
+                    type="text"
+                    placeholder="Nama Lengkap"
+                    class="w-full px-4 py-3 bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                    required
+                  />
+                </div>
+                <div class="mb-4">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    class="w-full px-4 py-3 bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                    required
+                  />
+                </div>
+                <div class="mb-4">
+                  <input
+                    type="text"
+                    placeholder="Subjek"
+                    class="w-full px-4 py-3 bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                    required
+                  />
+                </div>
+                <div class="mb-4">
+                  <textarea
+                    placeholder="Pesan Anda"
+                    rows="4"
+                    class="w-full px-4 py-3 bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition resize-none"
+                    required
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg text-white font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition transform hover:scale-105"
+                >
+                  Kirim Pesan
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 mb-4 md:mb-0">
+            © 2025 Azzahra Eka Ramadhani. All rights reserved.
+          </p>
+          <div class="flex gap-6">
+            <a href="#" class="text-gray-400 hover:text-purple-400 transition">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-purple-400 transition">
+              <i class="fab fa-linkedin text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-purple-400 transition">
+              <i class="fab fa-instagram text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-purple-400 transition">
+              <i class="fab fa-youtube text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button
+      id="back-to-top"
+      class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white opacity-0 invisible transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 z-30"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      const canvas = document.getElementById("particles-canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const particleCount = 100;
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 3 + 1;
+          this.speedX = Math.random() * 3 - 1.5;
+          this.speedY = Math.random() * 3 - 1.5;
+          this.opacity = Math.random() * 0.5 + 0.2;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.x > canvas.width) this.x = 0;
+          if (this.x < 0) this.x = canvas.width;
+          if (this.y > canvas.height) this.y = 0;
+          if (this.y < 0) this.y = canvas.height;
+        }
+
+        draw() {
+          ctx.fillStyle = `rgba(102, 126, 234, ${this.opacity})`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function initParticles() {
+        for (let i = 0; i < particleCount; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((particle) => {
+          particle.update();
+          particle.draw();
+        });
+
+        particles.forEach((a, index) => {
+          particles.slice(index + 1).forEach((b) => {
+            const distance = Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+            if (distance < 100) {
+              ctx.strokeStyle = `rgba(102, 126, 234, ${
+                0.1 * (1 - distance / 100)
+              })`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          });
+        });
+
+        requestAnimationFrame(animateParticles);
+      }
+
+      initParticles();
+      animateParticles();
+
+      // Resize canvas
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      // Loading Screen
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("loader").style.display = "none";
+        }, 1000);
+      });
+
+      // Typing Effect
+      const texts = ["Programming", "Data Analysis", "Game Developer", "Siswa"];
+      let textIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeEffect() {
+        const currentText = texts[textIndex];
+        const typedTextElement = document.getElementById("typed-text");
+
+        if (isDeleting) {
+          typedTextElement.textContent = currentText.substring(
+            0,
+            charIndex - 1
+          );
+          charIndex--;
+        } else {
+          typedTextElement.textContent = currentText.substring(
+            0,
+            charIndex + 1
+          );
+          charIndex++;
+        }
+
+        if (!isDeleting && charIndex === currentText.length) {
+          isDeleting = true;
+          setTimeout(typeEffect, 2000);
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+          setTimeout(typeEffect, 500);
+        } else {
+          setTimeout(typeEffect, isDeleting ? 50 : 100);
+        }
+      }
+
+      typeEffect();
+
+      // Theme Toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      const body = document.body;
+
+      themeToggle.addEventListener("click", () => {
+        if (body.classList.contains("dark")) {
+          body.classList.remove("dark");
+          body.classList.add("light");
+          themeIcon.classList.remove("fa-moon");
+          themeIcon.classList.add("fa-sun");
+        } else {
+          body.classList.remove("light");
+          body.classList.add("dark");
+          themeIcon.classList.remove("fa-sun");
+          themeIcon.classList.add("fa-moon");
+        }
+      });
+
+      // Mobile Menu Toggle
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Navbar Scroll Effect
+      const navbar = document.getElementById("navbar");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("navbar-scrolled");
+        } else {
+          navbar.classList.remove("navbar-scrolled");
+        }
+      });
+
+      // Reveal Animation on Scroll
+      const reveals = document.querySelectorAll(".reveal");
+
+      function revealOnScroll() {
+        reveals.forEach((element) => {
+          const windowHeight = window.innerHeight;
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+
+          if (elementTop < windowHeight - elementVisible) {
+            element.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", revealOnScroll);
+      revealOnScroll();
+
+      // Portfolio Filter
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const projectCards = document.querySelectorAll(".project-card");
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filter = btn.dataset.filter;
+
+          // Update active button
+          filterBtns.forEach((b) => b.classList.remove("bg-purple-500/20"));
+          btn.classList.add("bg-purple-500/20");
+
+          // Filter projects
+          projectCards.forEach((card) => {
+            if (filter === "all" || card.dataset.category === filter) {
+              card.style.display = "block";
+              setTimeout(() => {
+                card.style.opacity = "1";
+                card.style.transform = "scale(1)";
+              }, 10);
+            } else {
+              card.style.opacity = "0";
+              card.style.transform = "scale(0.8)";
+              setTimeout(() => {
+                card.style.display = "none";
+              }, 300);
+            }
+          });
+        });
+      });
+
+      // Contact Form
+      const contactForm = document.getElementById("contact-form");
+
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Create success message
+        const successMessage = document.createElement("div");
+        successMessage.className =
+          "fixed top-20 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50";
+        successMessage.innerHTML =
+          '<i class="fas fa-check-circle mr-2"></i> Pesan berhasil dikirim!';
+        document.body.appendChild(successMessage);
+
+        // Reset form
+        contactForm.reset();
+
+        // Remove message after 3 seconds
+        setTimeout(() => {
+          successMessage.remove();
+        }, 3000);
+      });
+
+      // Back to Top Button
+      const backToTop = document.getElementById("back-to-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          backToTop.classList.remove("opacity-0", "invisible");
+          backToTop.classList.add("opacity-100", "visible");
+        } else {
+          backToTop.classList.add("opacity-0", "invisible");
+          backToTop.classList.remove("opacity-100", "visible");
+        }
+      });
+
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      // Smooth scroll for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+            // Close mobile menu if open
+            mobileMenu.classList.add("hidden");
+          }
+        });
+      });
+
+      // Add hover effect to skill bars
+      const skillBars = document.querySelectorAll(".skill-progress");
+      skillBars.forEach((bar) => {
+        const width = bar.style.width;
+        bar.style.width = "0";
+
+        setTimeout(() => {
+          bar.style.width = width;
+        }, 500);
+      });
+    </script>
+  </body>
+</html>
