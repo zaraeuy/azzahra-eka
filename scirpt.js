@@ -76,11 +76,11 @@ window.addEventListener("resize", () => {
 });
 
 // Loading Screen
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("loader").style.display = "none";
-  }, 1000);
-});
+// window.addEventListener("load", () => {
+//   setTimeout(() => {
+//     document.getElementById("loader").style.display = "none";
+//   }, 1000);
+// });
 
 // Typing Effect
 const texts = ["Programming", "Game Developer", "Data Analysis", "Siswa"];
