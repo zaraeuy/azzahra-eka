@@ -201,28 +201,28 @@ filterBtns.forEach((btn) => {
   });
 });
 
-// Contact Form
-const contactForm = document.getElementById("contact-form");
+// // Contact Form
+// const contactForm = document.getElementById("contact-form");
 
-contactForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+// contactForm.addEventListener("submit", (e) => {
+//   e.preventDefault();
 
-  // Create success message
-  const successMessage = document.createElement("div");
-  successMessage.className =
-    "fixed top-20 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50";
-  successMessage.innerHTML =
-    '<i class="fas fa-check-circle mr-2"></i> Pesan berhasil dikirim!';
-  document.body.appendChild(successMessage);
+//   // Create success message
+//   const successMessage = document.createElement("div");
+//   successMessage.className =
+//     "fixed top-20 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50";
+//   successMessage.innerHTML =
+//     '<i class="fas fa-check-circle mr-2"></i> Pesan berhasil dikirim!';
+//   document.body.appendChild(successMessage);
 
-  // Reset form
-  contactForm.reset();
+//   // Reset form
+//   contactForm.reset();
 
-  // Remove message after 3 seconds
-  setTimeout(() => {
-    successMessage.remove();
-  }, 3000);
-});
+//   // Remove message after 3 seconds
+//   setTimeout(() => {
+//     successMessage.remove();
+//   }, 3000);
+// });
 
 // Back to Top Button
 const backToTop = document.getElementById("back-to-top");
